@@ -1,7 +1,22 @@
-#SPDX-License-Identifier: MIT-0
 ---
-# Variables that are unlikely to change between environments
-vector_service_name: vector
-vector_systemd_unit: /usr/lib/systemd/system/vector.service
-vector_config_path: "{{ vector_config_dir }}/vector.yml"
-vector_validate_command: "vector validate --no-environment --config-yaml %s"
+vector_config_path: "/etc/vector/vector.yaml"
+vector_config:
+  sources:
+    logs:
+      type: file
+      read_from: beginning
+      ignore_older_secs: 600
+      include:
+        - /home/fabryan/logs/*.log
+  sinks:
+    to_clickhouse:
+      type: clickhouse
+      inputs:
+        - logs
+      endpoint: "http://localhost:8123"
+      database: sample
+      table: some_logs
+      skip_unknown_fields: true
+      compression: gzip
+      healthcheck: false
+
