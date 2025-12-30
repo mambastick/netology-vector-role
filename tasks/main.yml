@@ -1,6 +1,6 @@
 ---
 - name: Install package based on OS
-  become: true
+  # become: true
   block:
     - name: Gather OS facts
       ansible.builtin.setup:

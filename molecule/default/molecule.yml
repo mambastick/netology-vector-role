@@ -5,21 +5,31 @@ driver:
   name: docker
 platforms:
   - name: rockylinux_9
-    image: rockylinux:9
-    pre_build_image: false
-    dockerfile: ../../centos/Dockerfile.j2
+    image: rockylinux-python:9 #rockylinux:9
+    pre_build_image: true
+#    dockerfile: ./centos/Dockerfile.j2
 
   - name: fedora_latest
-    image: docker.io/pycontribs/fedora:latest
+    image: pycontribs/fedora:latest
     pre_build_image: true
 
   - name: ubuntu_latest
-    image: ubuntu:jammy
-    pre_build_image: false
-    dockerfile: ../../ubuntu/Dockerfile.j2
+    image: ubuntu-python:latest #ubuntu:jammy
+    pre_build_image: true
+ #   dockerfile: ./ubuntu/Dockerfile.j2
+    # privileged: true
+    # tmpfs:
+    #   - /tmp
+    #   - /run
+    #   - /run/lock
+    # volumes:
+    #   - /sys/fs/cgroup:/sys/fs/cgroup:ro
 
 provisioner:
-   name: ansible
+  name: ansible
+  config_options:
+    defaults:
+      remote_tmp: /tmp/.ansible/tmp
 
 verifier:
   name: ansible

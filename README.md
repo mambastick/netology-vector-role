@@ -1,7 +1,7 @@
 vector-role
 =========
 
-This role installs vector on Centos
+This role installs vector on Centos.
 
 Role Variables
 --------------
@@ -18,13 +18,3 @@ Including an example of how to use your role (for instance, with variables passe
     - hosts: servers
       roles:
          - { role: vector-role }
-
-License
--------
-
-MIT
-
-Author Information
-------------------
-
-Semen Aleksandrov.
